@@ -7,22 +7,9 @@
     
     <meta name="description" content="Thuỵ My - Phó Giám đốc Trung tâm Tư vấn Pháp luật CLEAD (VECOM). Chuyên gia Pháp lý Thương mại điện tử và Bảo vệ người tiêu dùng.">
     <meta property="og:title" content="Thuỵ My | PHÁP LÝ • CHIẾN LƯỢC • TMĐT">
-    <meta property="og:image" content="https://clead.vn/avatar-thuymy.jpg"> <meta property="og:url" content="https://clead.vn">
+    <meta property="og:image" content="https://clead.vn/avatar-thuymy.jpg">
+    <meta property="og:url" content="https://clead.vn">
     <meta property="og:type" content="website">
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Thuỵ My",
-      "jobTitle": "Phó Giám đốc Trung tâm Tư vấn Pháp luật (CLEAD)",
-      "affiliation": [
-        { "@type": "Organization", "name": "Hiệp hội Thương mại điện tử Việt Nam (VECOM)" },
-        { "@type": "Organization", "name": "CLEAD.vn" }
-      ],
-      "description": "Chuyên gia tư vấn pháp lý Thương mại điện tử, điều phối các hoạt động bảo vệ người tiêu dùng và tuân thủ pháp luật số."
-    }
-    </script>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -44,7 +31,6 @@
             background-size: 30px 30px;
             line-height: 1.6;
             overflow-x: hidden;
-            text-rendering: optimizeLegibility;
         }
 
         main { padding-left: 10%; padding-right: 10%; width: 100%; margin: 0 auto; }
@@ -84,7 +70,7 @@
             align-items: center;
             justify-content: center;
         }
-        .zen-btn:hover { background-color: rgba(224, 170, 121, 0.1); transform: translateY(-3px); }
+        .zen-btn:hover { background-color: rgba(224, 170, 121, 0.1); transform: translateY(-3px); border-color: var(--zen-copper); }
 
         .pillar-grid {
             display: grid;
@@ -107,7 +93,7 @@
             text-align: center;
             transition: 0.4s;
         }
-        .pillar-box:hover { border-color: var(--zen-copper); }
+        .pillar-box:hover { border-color: var(--zen-copper); background: rgba(224, 170, 121, 0.05); }
 
         .contact-grid-layout {
             display: grid;
@@ -127,7 +113,7 @@
             align-items: center;
             transition: 0.4s;
         }
-        .contact-box-sync:hover { border-color: var(--zen-copper); background-color: rgba(224, 170, 121, 0.08); }
+        .contact-box-sync:hover { border-color: var(--zen-copper); background-color: rgba(224, 170, 121, 0.08); transform: translateY(-5px); }
 
         .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(20, 20, 20, 0.98); backdrop-filter: blur(20px); z-index: 100; align-items: center; justify-content: center; }
 
@@ -139,33 +125,39 @@
             filter: brightness(0) invert(1);
             opacity: 0.85;
             margin-bottom: 1.5rem;
+            transition: 0.5s;
         }
+        .signature-img:hover { opacity: 1; transform: scale(1.05); }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
 
     <div id="passwordModal" class="modal-overlay">
-        <div class="max-w-md w-full text-center p-12 bg-[#1a1a1a] border border-white/10 rounded-sm">
+        <div class="max-w-md w-full text-center p-12 bg-[#1a1a1a] border border-white/10 rounded-sm shadow-2xl">
             <h3 id="modalTitle" class="text-[10px] uppercase tracking-[0.3em] font-light mb-10 text-stone-400">Xác thực Quyền truy cập</h3>
-            <input type="password" id="passInput" placeholder="Nhập mã truy cập..." class="w-full p-4 bg-white/5 border border-white/10 text-white text-center mb-10 focus:outline-none focus:border-[#E0AA79]">
+            <input type="password" id="passInput" placeholder="Mã định danh truy cập..." class="w-full p-4 bg-white/5 border border-white/10 text-white text-center mb-10 focus:outline-none focus:border-[#E0AA79]">
             <div class="flex gap-6 justify-center">
-                <button onclick="closeModal('passwordModal')" class="text-[9px] uppercase tracking-widest opacity-50 text-white">Hủy bỏ</button>
-                <button onclick="validateAccess()" class="px-10 py-4 bg-[#E0AA79]/20 text-white text-[9px] uppercase tracking-widest border border-[#E0AA79]/30">Xác nhận</button>
+                <button onclick="closeModal('passwordModal')" class="text-[9px] uppercase tracking-widest opacity-50 text-white hover:opacity-100 transition">Hủy bỏ</button>
+                <button onclick="validateAccess()" class="px-10 py-4 bg-[#E0AA79]/20 text-white text-[9px] uppercase tracking-widest border border-[#E0AA79]/30 hover:bg-[#E0AA79]/40 transition">Xác nhận</button>
             </div>
             <p id="errorMsg" class="text-red-400 text-[9px] mt-6 opacity-0 uppercase">Mã truy cập không hợp lệ</p>
         </div>
     </div>
 
     <div id="qrCardModal" class="modal-overlay" onclick="closeQRModal(event)">
-        <div class="max-w-[500px] w-[90%] p-10 bg-[#1a1a1a] border border-[#E0AA79]/20 relative" onclick="event.stopPropagation()">
+        <div class="max-w-[500px] w-[90%] p-10 bg-[#1a1a1a] border border-[#E0AA79]/20 relative shadow-2xl" onclick="event.stopPropagation()">
+            <button onclick="document.getElementById('qrCardModal').style.display='none'" class="absolute top-4 right-4 text-stone-500 hover:text-white transition"><i class="fas fa-times text-xs"></i></button>
             <h3 class="text-[10px] uppercase tracking-[0.4em] font-light mb-10 text-center text-stone-400">DANH THIẾP ĐIỆN TỬ - THUỴ MY</h3>
             <div class="flex flex-col items-center">
-                <img src="qr-thuymy.png" alt="QR Code" class="w-48 h-48 mb-8 grayscale hover:grayscale-0 transition-all duration-700">
+                <div class="p-2 bg-white/5 border border-[#E0AA79]/20 mb-8">
+                    <img src="qr-thuymy.png" alt="QR Code" class="w-48 h-48 grayscale hover:grayscale-0 transition-all duration-700">
+                </div>
                 <div class="grid grid-cols-2 gap-4 w-full">
-                    <a href="https://zalo.me/sodienthoai" class="zen-btn text-[8px]"><i class="fas fa-comment-dots mr-2"></i> Zalo</a>
-                    <a href="mailto:my.nguyen@clead.vn" class="zen-btn text-[8px]"><i class="fas fa-envelope mr-2"></i> Email</a>
+                    <a href="https://zalo.me/0908022044" target="_blank" class="zen-btn text-[8px]"><i class="fas fa-comment-dots mr-2"></i> Zalo</a>
+                    <a href="mailto:mynvt@clead.vn" class="zen-btn text-[8px]"><i class="fas fa-envelope mr-2"></i> Email</a>
                 </div>
             </div>
+            <div class="mt-8 text-[8px] text-stone-600 uppercase tracking-widest text-center">0908.022.044 • mynvt@clead.vn</div>
         </div>
     </div>
 
@@ -185,8 +177,9 @@
         <div class="w-16 h-[0.5px] bg-[#E0AA79]/50 mb-12 stagger" style="animation-delay: 0.5s"></div>
 
         <div class="mb-20 stagger flex flex-col md:flex-row gap-4" style="animation-delay: 0.6s">
-            <button onclick="openQRModal()" class="zen-btn"><i class="fas fa-qrcode mr-3"></i>Danh thiếp</button>
-            <button onclick="window.location.href='mailto:my.nguyen@clead.vn'" class="zen-btn"><i class="fas fa-paper-plane mr-3"></i>Liên hệ công việc</button>
+            <button onclick="openQRModal()" class="zen-btn"><i class="fas fa-qrcode mr-3"></i>Danh thiếp điện tử</button>
+            <button onclick="window.location.href='mailto:mynvt@clead.vn'" class="zen-btn"><i class="fas fa-paper-plane mr-3"></i>Đăng ký tư vấn</button>
+            <a href="#" target="_blank" class="zen-btn"><i class="fas fa-file-pdf mr-3"></i>Hồ sơ năng lực</a>
         </div>
 
         <div class="pillar-grid stagger" style="animation-delay: 0.7s">
@@ -197,7 +190,6 @@
             </div>
             <div class="pillar-box">
                 <i class="fas fa-shield-check text-xl mb-6 text-[#E0AA79]"></i>
-                <h3 class="text-[11px] font-bold tracking-[0.2em] mb-4 uppercase">VECOM</h3>
                 <h3 class="text-[11px] font-bold tracking-[0.2em] mb-4 uppercase">VECOM</h3>
                 <p class="text-[8.5px] text-stone-400 uppercase leading-relaxed">Đại diện Phía Nam<br>Hiệp hội Thương mại<br>điện tử Việt Nam</p>
             </div>
@@ -220,15 +212,15 @@
 
         <div class="w-full max-w-5xl border-t border-[#E0AA79]/20 pt-16 mb-20 stagger" style="animation-delay: 0.8s">
             <div class="contact-grid-layout">
-                <a href="tel:09xxxxxxx" class="contact-box-sync">
+                <a href="tel:+84908022044" class="contact-box-sync">
                     <i class="fas fa-phone-alt text-lg text-[#E0AA79] mb-4"></i>
                     <span class="text-[9px] font-bold uppercase tracking-widest">Hotline</span>
                 </a>
-                <a href="https://zalo.me/09xxxxxxx" target="_blank" class="contact-box-sync">
+                <a href="https://zalo.me/0908022044" target="_blank" class="contact-box-sync">
                     <i class="fas fa-comment-dots text-lg text-[#E0AA79] mb-4"></i>
                     <span class="text-[9px] font-bold uppercase tracking-widest">Zalo</span>
                 </a>
-                <a href="mailto:my.nguyen@clead.vn" class="contact-box-sync">
+                <a href="mailto:mynvt@clead.vn" class="contact-box-sync">
                     <i class="fas fa-envelope text-lg text-[#E0AA79] mb-4"></i>
                     <span class="text-[9px] font-bold uppercase tracking-widest">Email</span>
                 </a>
@@ -250,7 +242,7 @@
 
     <footer class="p-16 flex flex-col items-center stagger" style="animation-delay: 1s">
         <img src="signature-thuymy.png" alt="Chữ ký Thuỵ My" class="signature-img">
-        <div class="text-[8px] tracking-[0.5em] text-stone-500 uppercase">© 2026 THUY MY - CLEAD. ALL RIGHTS RESERVED.</div>
+        <div class="text-[8px] tracking-[0.5em] text-stone-500 uppercase text-center">© 1981 THUY MY • CLEAD.VN. ALL RIGHTS RESERVED.</div>
     </footer>
 
     <script>
